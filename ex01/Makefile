@@ -1,5 +1,4 @@
-NAME			=	ex00.out
-
+NAME			=	ex01.out
 CXX				=	c++
 CXXFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic
 
