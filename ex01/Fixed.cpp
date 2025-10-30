@@ -5,11 +5,11 @@ Fixed::Fixed() : _rawBits(0) {
 }
 
 Fixed::Fixed(const int &raw) {
-	std::cout << "Default constructor called" << std::endl;
-	_rawBits = num << _kFractionalBits;
+	std::cout << "Int constructor called" << std::endl;
+	_rawBits = raw << _kFractionalBits;
 }
 
-static int round_to_int(float f) {
+static int roundToInt(float f) {
     if (f >= 0.0f) {
         return static_cast<int>(std::floor(f + 0.5f));
     } else {
@@ -18,8 +18,8 @@ static int round_to_int(float f) {
 }
 
 Fixed::Fixed(const float &raw) {
-	std::cout << "Default constructor called" << std::endl;
-	_rawBits = round_to_int(raw * (1 << _numOfFractionalBits));
+	std::cout << "Float constructor called" << std::endl;
+	_rawBits = roundToInt(raw * (1 << _kFractionalBits));
 }
 
 Fixed::~Fixed() {
@@ -40,11 +40,23 @@ Fixed &Fixed::operator=(const Fixed &other) {
 }
 
 int Fixed::getRawBits (void) const {
-	std::cout << "getRawBits member function called" << std::endl;
 	return _rawBits;
 }
 
 void Fixed::setRawBits (const int raw) {
-	std::cout << "setRawBits member function called" << std::endl;
 	_rawBits = raw;
+}
+
+float Fixed::toFloat(void) const {
+	return static_cast<float>(_rawBits) / (1 << _kFractionalBits);
+}
+
+int Fixed::toInt(void) const {
+	float tmp = toFloat();
+	return roundToInt(tmp);
+}
+
+std::ostream &operator<<(std::ostream &out, Fixed const &fixed) {
+    out << fixed.toFloat();
+    return out;
 }

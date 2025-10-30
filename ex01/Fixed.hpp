@@ -20,6 +20,10 @@ class Fixed
 
 	 int getRawBits (void) const;
 	 void setRawBits (const int raw);
+	 float toFloat(void) const;
+	 int toInt(void) const;
 };
+
+std::ostream &operator<<(std::ostream &out, Fixed const &fixed);
 
 #endif // _FIXED_H_
